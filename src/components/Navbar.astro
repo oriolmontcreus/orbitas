@@ -1,0 +1,27 @@
+---
+import { Button } from "$lib/components/ui/button/index.js";
+let isLoggedIn = false;
+let username = '';
+let avatarUrl = '';
+---
+
+<nav class="flex items-center justify-between p-4 bg-black">
+  <div class="flex items-center space-x-4">
+    <h1 class="text-xl font-bold">My App</h1>
+  </div>
+  <div class="flex items-center">
+    {isLoggedIn ? (
+      <div class="flex items-center space-x-4">
+        <img src={avatarUrl} alt="Avatar" class="w-10 h-10 rounded-full border-2 border-gray-700" />
+        <span>{username}</span>
+      </div>
+    ) : (
+      <Button
+        href="/login"
+        variant="outline"
+      >
+        Login
+      </Button>
+    )}
+  </div>
+</nav>
