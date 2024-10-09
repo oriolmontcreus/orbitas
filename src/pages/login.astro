@@ -1,0 +1,11 @@
+---
+import LoginForm from '@components/LoginForm.svelte';
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout title="Login | Orbitas">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <LoginForm client:visible />
+    </div>
+  </body>
+</Layout>
