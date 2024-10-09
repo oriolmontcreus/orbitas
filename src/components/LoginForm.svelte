@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
+  import { login } from "@services/auth";
   
   let email: string = '';
   let password: string = '';
@@ -8,6 +9,7 @@
   function handleSubmit(event: Event): void {
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
+    login(email, password);
   }
 </script>
 
