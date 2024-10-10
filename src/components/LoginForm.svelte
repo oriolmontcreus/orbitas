@@ -1,15 +1,19 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import { login } from "@services/auth";
-  
+  import { handleRequest, isLoading } from '@utils/handleRequest';
+  import { loginUser } from '@services/auth';
+
   let email: string = '';
   let password: string = '';
 
   function handleSubmit(event: Event): void {
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
-    login(email, password);
+    handleRequest({
+      perform: () => loginUser(email, password),
+      successMsg: "Login successful",
+      errorMsg: "Login failed",
+    });
   }
 </script>
 
@@ -39,9 +43,10 @@
   </div>
   <Button
     type="submit"
-    variant="secondary"
+    variant={$isLoading ? "secondary" : "primary"}
     class="w-full text-white font-bold py-2 px-4 rounded"
+    disabled={$isLoading}
   >
-    Login
+    {$isLoading ? "Loading..." : "Login"}
   </Button>
 </form>

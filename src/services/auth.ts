@@ -6,9 +6,6 @@ import type { UserRegisterPayload } from '$lib/types/auth';
 export const pb = new PocketBase(POCKETBASE_DEV_API_URL);
 
 export function isUserLoggedIn() {
-  console.log("Auth Store Valid:", pb.authStore.isValid);
-  console.log("Auth Store Token:", pb.authStore.token);
-  console.log("Auth Store Model ID:", pb.authStore.model?.id);
   return pb.authStore.isValid;
 }
 
@@ -17,18 +14,13 @@ export function getCurrentUser() {
 }
 
 export async function logout() {
-  console.log("Logging out...");
   pb.authStore.clear();
-  console.log("After logout - Auth Store Valid:", pb.authStore.isValid);
-  console.log("After logout - Auth Store Token:", pb.authStore.token);
-  console.log("After logout - Auth Store Model ID:", pb.authStore.model?.id);
 }
 
-export async function login(username_or_email: string, password: string) {
+export async function loginUser(username_or_email: string, password: string) {
   await pb.collection('users').authWithPassword(username_or_email, password);
 }
 
-export async function register(payload: UserRegisterPayload) {
-  console.log('payload', payload);
+export async function registerUser(payload: UserRegisterPayload) {
   await pb.collection('users').create(payload);
 }

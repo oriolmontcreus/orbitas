@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import { Toaster } from 'svelte-sonner';
 import '../app.css';
 import { ModeWatcher } from "mode-watcher";
 ---
@@ -46,6 +47,7 @@ import { ModeWatcher } from "mode-watcher";
 	<body>
 		<ModeWatcher client:load />
 		<slot />
+		<Toaster richColors client:idle />
 	</body>
 </html>
 <style is:global>
