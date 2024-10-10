@@ -1,4 +1,5 @@
 <script lang="ts">
+	import UserMenu from './UserMenu.svelte';
   import { Button } from "$lib/components/ui/button";
   import { isUserLoggedIn, getCurrentUser } from "@services/auth";
 
@@ -18,23 +19,6 @@
     <h1 class="text-xl font-bold">Orbitas</h1>
   </div>
   <div class="flex items-center">
-    {#if isLoading}
-      <Button variant="outline" disabled>
-        <div
-          class="w-5 h-5 border-4 border-t-gray-500 border-gray-300 rounded-full animate-spin"
-        ></div>
-      </Button>
-    {:else if isLoggedIn && user}
-      <Button variant="outline">
-        <span>@{user.username}</span>
-        <img
-          src={user.avatar || ""}
-          alt="Avatar"
-          class="w-7 h-7 ml-2 rounded-full border-2 border-gray-700"
-        />
-      </Button>
-    {:else}
-      <Button href="/login" variant="outline">Login</Button>
-    {/if}
+    <UserMenu />
   </div>
 </nav>

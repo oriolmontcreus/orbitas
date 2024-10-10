@@ -16,6 +16,7 @@
     "astro": "^4.15.12",
     "bits-ui": "^0.21.16",
     "clsx": "^2.1.1",
+    "lucide-svelte": "^0.451.0",
     "mode-watcher": "^0.4.1",
     "pocketbase": "^0.21.5",
     "svelte": "^4.2.19",
