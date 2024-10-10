@@ -46,6 +46,7 @@
       bind:value={userRegisterData.username}
       required
       class="w-full px-4 py-2 border"
+      autocomplete="username"
     />
   </div>
   <div class="flex w-full max-w-sm flex-col gap-1.5 mb-4">
@@ -56,6 +57,7 @@
       bind:value={userRegisterData.email}
       required
       class="w-full px-4 py-2 border"
+      autocomplete="email"
     />
   </div>
   <div class="flex w-full max-w-sm flex-col gap-1.5 mb-4">
@@ -66,6 +68,7 @@
       bind:value={userRegisterData.password}
       required
       class="w-full px-4 py-2 border"
+      autocomplete="new-password"
     />
     <p class="text-muted-foreground text-sm">Must be at least 8 characters</p>
   </div>
@@ -77,6 +80,7 @@
       bind:value={userRegisterData.passwordConfirm}
       required
       class="w-full px-4 py-2 border"
+      autocomplete="new-password"
     />
   </div>
   <Button
