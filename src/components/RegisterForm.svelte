@@ -2,8 +2,9 @@
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { registerUser } from "@services/auth";
-  import { showPromiseToast } from '@services/toastService';
-  import { handleRequest, isLoading } from '@utils/handleRequest';
+  import { showPromiseToast } from "@services/toastService";
+  import { handleRequest, isLoading } from "@utils/handleRequest";
+  import { navigate } from "astro:transitions/client";
 
   export type UserRegisterPayload = {
     username: string;
@@ -13,30 +14,36 @@
   };
 
   let userRegisterData: UserRegisterPayload = {
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: ''
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
   };
 
   function handleSubmit(event: Event): void {
     event.preventDefault();
     if (userRegisterData.password !== userRegisterData.passwordConfirm) {
-      console.log('Passwords do not match.');
+      console.log("Passwords do not match.");
       return;
     }
 
     const promise = registerUser(userRegisterData);
 
     showPromiseToast(promise, {
-      loading: 'Registering...',
-      success: () => 'Registration successful',
-      error: 'Registration failed. Please try again.',
+      loading: "Registering...",
+      success: () => {
+        navigate("/"); // Redirect to home on success
+        return "Registration successful";
+      },
+      error: "Registration failed. Please try again.",
     });
   }
 </script>
 
-<form on:submit={handleSubmit} class="w-full max-w-sm p-6 rounded-lg shadow-md border">
+<form
+  on:submit={handleSubmit}
+  class="w-full max-w-sm p-6 rounded-lg shadow-md border"
+>
   <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
   <div class="flex w-full max-w-sm flex-col gap-1.5 mb-4">
     <label for="username" class="block mb-2">Username</label>

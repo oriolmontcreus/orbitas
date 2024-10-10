@@ -1,23 +1,30 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import { handleRequest, isLoading } from '@utils/handleRequest';
-  import { loginUser } from '@services/auth';
+  import { handleRequest, isLoading } from "@utils/handleRequest";
+  import { loginUser } from "@services/auth";
+  import { navigate } from "astro:transitions/client";
 
-  let email: string = '';
-  let password: string = '';
+  let email: string = "";
+  let password: string = "";
 
   function handleSubmit(event: Event): void {
     event.preventDefault();
     handleRequest({
-      perform: () => loginUser(email, password),
+      perform: async () => {
+        await loginUser(email, password);
+        navigate("/");
+      },
       successMsg: "Login successful",
       errorMsg: "Login failed",
     });
   }
 </script>
 
-<form on:submit={handleSubmit} class="w-full max-w-sm p-6 rounded-lg shadow-md border">
+<form
+  on:submit={handleSubmit}
+  class="w-full max-w-sm p-6 rounded-lg shadow-md border"
+>
   <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
   <div class="mb-4">
     <label for="email" class="block mb-2">Email</label>
