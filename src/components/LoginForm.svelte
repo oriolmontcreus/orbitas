@@ -5,34 +5,32 @@
   import { login, currentUser } from "@services/auth";
   import { navigate } from "astro:transitions/client";
 
-  let email: string = "";
+  let username_or_email: string = "";
   let password: string = "";
 
-  function handleSubmit(event: Event): void {
-    event.preventDefault();
+  function handleSubmit(): void {
     handleRequest({
       perform: async () => {
-        await login(email, password);
+        await login(username_or_email, password);
         navigate("/");
       },
-      successMsg: "Login successful",
-      errorMsg: "Login failed",
+      errorMsg: "Login failed. Please try again.",
     });
   }
 </script>
 
 <form
-  on:submit={handleSubmit}
+  on:submit|preventDefault={handleSubmit}
   class="w-full max-w-sm p-6 rounded-lg shadow-md border"
 >
   <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
   <div class="mb-4">
-    <label for="email" class="block mb-2">Email</label>
+    <label for="email" class="block mb-2">Email/Username</label>
     <Input
       id="email"
-      type="email"
-      bind:value={email}
-      placeholder="Enter your email"
+      type="text"
+      bind:value={username_or_email}
+      placeholder="Enter your email or username"
       required
       class="w-full px-4 py-2 border"
     />
