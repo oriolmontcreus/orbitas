@@ -1,17 +1,12 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import { registerUser } from "@services/auth";
+  import { register, currentUser } from "@services/auth";
   import { showPromiseToast } from "@services/toastService";
-  import { handleRequest, isLoading } from "@utils/handleRequest";
+  import { isLoading } from "@utils/handleRequest";
   import { navigate } from "astro:transitions/client";
-
-  export type UserRegisterPayload = {
-    username: string;
-    email: string;
-    password: string;
-    passwordConfirm: string;
-  };
+  import type { UserRegisterPayload } from "$lib/types/auth";
+  import { onMount } from "svelte";
 
   let userRegisterData: UserRegisterPayload = {
     username: "",
@@ -20,6 +15,12 @@
     passwordConfirm: "",
   };
 
+  onMount(() => {
+    if ($currentUser) {
+      navigate("/");
+    }
+  });
+
   function handleSubmit(event: Event): void {
     event.preventDefault();
     if (userRegisterData.password !== userRegisterData.passwordConfirm) {
@@ -27,13 +28,13 @@
       return;
     }
 
-    const promise = registerUser(userRegisterData);
+    const promise = register(userRegisterData);
 
     showPromiseToast(promise, {
       loading: "Registering...",
       success: () => {
-        navigate("/"); // Redirect to home on success
-        return "Registration successful";
+        navigate("/");
+        return "Registration successful. Welcome to Orbitas!";
       },
       error: "Registration failed. Please try again.",
     });
@@ -92,7 +93,7 @@
   </div>
   <Button
     type="submit"
-    variant={$isLoading ? "secondary" : "primary"}
+    variant={$isLoading ? "secondary" : "default"}
     class="w-full text-white font-bold py-2 px-4 rounded"
     disabled={$isLoading}
   >

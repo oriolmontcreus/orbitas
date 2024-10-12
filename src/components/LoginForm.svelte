@@ -2,7 +2,7 @@
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { handleRequest, isLoading } from "@utils/handleRequest";
-  import { loginUser } from "@services/auth";
+  import { login, currentUser } from "@services/auth";
   import { navigate } from "astro:transitions/client";
 
   let email: string = "";
@@ -12,7 +12,7 @@
     event.preventDefault();
     handleRequest({
       perform: async () => {
-        await loginUser(email, password);
+        await login(email, password);
         navigate("/");
       },
       successMsg: "Login successful",
@@ -50,8 +50,8 @@
   </div>
   <Button
     type="submit"
-    variant={$isLoading ? "secondary" : "primary"}
-    class="w-full text-white font-bold py-2 px-4 rounded"
+    variant={$isLoading ? "secondary" : "default"}
+    class="w-full font-bold py-2 px-4 rounded"
     disabled={$isLoading}
   >
     {$isLoading ? "Loading..." : "Login"}
