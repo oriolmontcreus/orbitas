@@ -10,5 +10,6 @@
       "@services/*": ["./src/services/*"],
       "@utils/*": ["./src/utils/*"],
     },
+    "types": ["svelte"]
   },
 }
