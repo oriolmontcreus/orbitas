@@ -25,14 +25,15 @@
 >
   <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
   <div class="mb-4">
-    <label for="email" class="block mb-2">Email/Username</label>
+    <label for="username_or_email" class="block mb-2">Email/Username</label>
     <Input
-      id="email"
+      id="username_or_email"
       type="text"
       bind:value={username_or_email}
       placeholder="Enter your email or username"
       required
       class="w-full px-4 py-2 border"
+      autocomplete="username"
     />
   </div>
   <div class="mb-6">
@@ -44,6 +45,7 @@
       placeholder="Enter your password"
       required
       class="w-full px-4 py-2 border"
+      autocomplete="current-password"
     />
   </div>
   <Button

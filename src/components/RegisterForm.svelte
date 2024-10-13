@@ -86,7 +86,7 @@
   <Button
     type="submit"
     variant={$isLoading ? "secondary" : "default"}
-    class="w-full text-white font-bold py-2 px-4 rounded"
+    class="w-full font-bold py-2 px-4 rounded"
     disabled={$isLoading}
   >
     {$isLoading ? "Loading..." : "Register"}
