@@ -1,35 +1,24 @@
 <script lang="ts">
-  import CirclePlus from "lucide-svelte/icons/circle-plus";
-  import Cloud from "lucide-svelte/icons/cloud";
-  import CreditCard from "lucide-svelte/icons/credit-card";
-  import Github from "lucide-svelte/icons/github";
-  import Keyboard from "lucide-svelte/icons/keyboard";
-  import LifeBuoy from "lucide-svelte/icons/life-buoy";
   import LogOut from "lucide-svelte/icons/log-out";
-  import Mail from "lucide-svelte/icons/mail";
-  import MessageSquare from "lucide-svelte/icons/message-square";
-  import Plus from "lucide-svelte/icons/plus";
   import Settings from "lucide-svelte/icons/settings";
   import User from "lucide-svelte/icons/user";
-  import UserPlus from "lucide-svelte/icons/user-plus";
-  import Users from "lucide-svelte/icons/users";
-
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-  import { isUserLoggedIn, currentUser, logout } from "@services/auth";
-  import { navigate } from "astro:transitions/client";
-
-  let isLoggedIn = isUserLoggedIn();
+  import { currentUser, logout } from "@services/auth";
+  import { handleRequest } from "$lib/utils/handleRequest";
 
   async function handleLogout() {
-    await logout();
-    isLoggedIn = false;
+    handleRequest({
+      perform: async () => await logout(),
+      errorMsg: "Logout failed. Please try again.",
+      successMsg: "Logged out successfully."
+    });
   }
 
   $: user = $currentUser as User | null;
 </script>
 
-{#if isLoggedIn && user}
+{#if user}
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button builders={[builder]} variant="outline">
@@ -42,8 +31,6 @@
       </Button>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="w-56">
-      <DropdownMenu.Label>My Account</DropdownMenu.Label>
-      <DropdownMenu.Separator />
       <DropdownMenu.Group>
         <DropdownMenu.Item>
           <User class="mr-2 h-4 w-4" />

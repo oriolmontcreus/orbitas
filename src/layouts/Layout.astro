@@ -7,6 +7,7 @@ const { title } = Astro.props;
 import { Toaster } from 'svelte-sonner';
 import '../app.css';
 import { ModeWatcher } from "mode-watcher";
+import Navbar from '$lib/components/Navbar.svelte';
 ---
 
 <script is:inline>
@@ -45,8 +46,11 @@ import { ModeWatcher } from "mode-watcher";
 		<title>{title}</title>
 	</head>
 	<body>
+		<Navbar client:visible />
 		<ModeWatcher client:load />
-		<slot />
+		<div class="h-[calc(100vh-73px)] scroll-smooth">
+			<slot />
+		</div>
 		<Toaster richColors client:idle />
 	</body>
 </html>
