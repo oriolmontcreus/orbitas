@@ -1,9 +1,10 @@
 import { writable } from 'svelte/store';
-import { showPromiseToast, showErrorToast } from '@services/toastService';
+import { showPromiseToast, showErrorToast, showSuccessToast } from '@services/toastService';
+import { navigate } from 'astro:transitions/client';
 
 export const isLoading = writable(false);
 
-interface RequestAction {
+export interface RequestAction {
   perform: () => Promise<any>;
   successMsg?: string;
   errorMsg: string;

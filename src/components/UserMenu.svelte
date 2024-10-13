@@ -5,15 +5,18 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import { currentUser, logout } from "@services/auth";
-  import { handleRequest } from "$lib/utils/handleRequest";
+  import { handleRequestAndRedirect } from "$lib/utils/handleRequest";
 
   async function handleLogout() {
-    handleRequest({
-      perform: async () => await logout(),
-      errorMsg: "Logout failed. Please try again.",
-      successMsg: "Logged out successfully."
-    });
-  }
+  handleRequestAndRedirect({
+    perform: async () => {
+      await logout();
+    },
+    errorMsg: "Logout failed. Please try again.",
+    successMsg: "Logged out successfully.",
+    redirectUrl: "/"
+  });
+}
 
   $: user = $currentUser as User | null;
 </script>
@@ -22,11 +25,17 @@
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button builders={[builder]} variant="outline">
-        <img
-          src={user.avatar || ""}
-          alt="Avatar"
-          class="w-6 h-6 rounded-full mr-2"
-        />
+        {#if user.avatar}
+          <img
+            src={user.avatar}
+            alt="Avatar"
+            class="w-6 h-6 rounded-full mr-2"
+          />
+        {:else}
+          <div class="w-6 h-6 rounded-full mr-2 bg-gray-300 flex items-center justify-center text-gray-600 font-semibold">
+            {user.username.charAt(0).toUpperCase()}
+          </div>
+        {/if}
         {user.username}
       </Button>
     </DropdownMenu.Trigger>

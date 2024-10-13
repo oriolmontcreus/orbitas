@@ -2,11 +2,12 @@
 import RegisterForm from '@components/RegisterForm.svelte';
 import Layout from '@layouts/Layout.astro';
 import { ViewTransitions } from 'astro:transitions';
+import "../app.css";
 ---
 
 <Layout title="Register | Orbitas">
   <ViewTransitions/>
-  <div class="flex items-center justify-center min-h-screen p-4">
+  <div class="flex items-center justify-center min-h-[calc(100vh-73px)]">
     <RegisterForm client:visible />
   </div>
   </body>
