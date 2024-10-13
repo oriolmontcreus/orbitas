@@ -2,7 +2,7 @@
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import { handleRequest, isLoading } from "@utils/handleRequest";
-  import { login, currentUser } from "@services/auth";
+  import { login } from "@services/auth";
   import { navigate } from "astro:transitions/client";
 
   let username_or_email: string = "";

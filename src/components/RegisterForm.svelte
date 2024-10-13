@@ -1,34 +1,26 @@
 <script lang="ts">
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import { register, currentUser } from "@services/auth";
-  import { showPromiseToast } from "@services/toastService";
+  import { register } from "@services/auth";
+  import { showErrorToast, showPromiseToast } from "@services/toastService";
   import { isLoading } from "@utils/handleRequest";
   import { navigate } from "astro:transitions/client";
   import type { UserRegisterPayload } from "$lib/types/auth";
-  import { onMount } from "svelte";
 
-  let userRegisterData: UserRegisterPayload = {
+  let registerData: UserRegisterPayload = {
     username: "",
     email: "",
     password: "",
     passwordConfirm: "",
   };
 
-  onMount(() => {
-    if ($currentUser) {
-      navigate("/");
-    }
-  });
-
-  function handleSubmit(event: Event): void {
-    event.preventDefault();
-    if (userRegisterData.password !== userRegisterData.passwordConfirm) {
-      console.log("Passwords do not match.");
+  function handleSubmit(): void {
+    if (registerData.password !== registerData.passwordConfirm) {
+      showErrorToast("Passwords do not match.");
       return;
     }
 
-    const promise = register(userRegisterData);
+    const promise = register(registerData);
 
     showPromiseToast(promise, {
       loading: "Registering...",
@@ -42,7 +34,7 @@
 </script>
 
 <form
-  on:submit={handleSubmit}
+  on:submit|preventDefault={handleSubmit}
   class="w-full max-w-sm p-6 rounded-lg shadow-md border"
 >
   <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
@@ -51,7 +43,7 @@
     <Input
       id="username"
       type="text"
-      bind:value={userRegisterData.username}
+      bind:value={registerData.username}
       required
       class="w-full px-4 py-2 border"
       autocomplete="username"
@@ -62,7 +54,7 @@
     <Input
       id="email"
       type="email"
-      bind:value={userRegisterData.email}
+      bind:value={registerData.email}
       required
       class="w-full px-4 py-2 border"
       autocomplete="email"
@@ -73,7 +65,7 @@
     <Input
       id="password"
       type="password"
-      bind:value={userRegisterData.password}
+      bind:value={registerData.password}
       required
       class="w-full px-4 py-2 border"
       autocomplete="new-password"
@@ -85,7 +77,7 @@
     <Input
       id="confirmPassword"
       type="password"
-      bind:value={userRegisterData.passwordConfirm}
+      bind:value={registerData.passwordConfirm}
       required
       class="w-full px-4 py-2 border"
       autocomplete="new-password"
@@ -97,6 +89,6 @@
     class="w-full text-white font-bold py-2 px-4 rounded"
     disabled={$isLoading}
   >
-    {$isLoading ? "Registering..." : "Register"}
+    {$isLoading ? "Loading..." : "Register"}
   </Button>
 </form>
