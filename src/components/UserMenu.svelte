@@ -5,7 +5,7 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import { currentUser, logout } from "@services/auth";
-  import { handleRequestAndRedirect } from "$lib/utils/handleRequest";
+  import { handleRequestAndRedirect } from "$lib/utils/handleRequestAndRedirect";
 
   async function handleLogout() {
   handleRequestAndRedirect({
