@@ -1,5 +1,6 @@
 <script lang="ts">
     import '../app.css';
+    import { Search, Globe, Lock } from "lucide-svelte";
     import { Button } from "$lib/components/ui/button";
     import { Input } from "$lib/components/ui/input";
     import { Card, CardContent, CardHeader, CardTitle } from "$lib/components/ui/card";
@@ -7,7 +8,8 @@
     import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose } from "$lib/components/ui/sheet";
     import { Tabs, TabsContent, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
     import { ScrollArea } from "$lib/components/ui/scroll-area";
-    import { Bell, MessageSquare, Search, Settings, Users } from "lucide-svelte";
+    import OpenSourceIndicator from './indicators/OpenSourceIndicator.svelte';
+    import ClosedSourceIndicator from './indicators/ClosedSourceIndicator.svelte';
   
     let selectedProject: any = null;
   
@@ -15,8 +17,6 @@
       { id: 1, title: "AI-Powered Art Generator", creator: "Alice Johnson", collaborators: 5, status: "In Progress", isOpenSource: true, description: "An innovative project leveraging machine learning to create unique digital artworks based on text prompts." },
       { id: 2, title: "Sustainable Urban Planning Tool", creator: "Bob Smith", collaborators: 8, status: "Completed", isOpenSource: false, description: "A comprehensive software solution for city planners to design eco-friendly and efficient urban spaces." },
       { id: 3, title: "Decentralized Social Media Platform", creator: "Charlie Brown", collaborators: 12, status: "In Progress", isOpenSource: true, description: "A blockchain-based social network that prioritizes user privacy and data ownership." },
-      { id: 4, title: "Decentralized Social Media Platform", creator: "Charlie Brown", collaborators: 12, status: "In Progress", isOpenSource: true, description: "A blockchain-based social network that prioritizes user privacy and data ownership." },
-      { id: 5, title: "Decentralized Social Media Platform", creator: "Charlie Brown", collaborators: 12, status: "In Progress", isOpenSource: true, description: "A blockchain-based social network that prioritizes user privacy and data ownership." },
     ];
   </script>
   
@@ -56,9 +56,11 @@
                 <CardContent>
                   <p class="text-sm text-muted-foreground mb-2">by {project.creator}</p>
                   <div class="flex space-x-2">
-                    <Badge variant={project.isOpenSource ? "default" : "secondary"}>
-                      {project.isOpenSource ? "Open Source" : "Closed Source"}
-                    </Badge>
+                    {#if project.isOpenSource}
+                    <OpenSourceIndicator />
+                {:else}
+                    <ClosedSourceIndicator />
+                {/if}
                     <Badge variant="outline">{project.status}</Badge>
                   </div>
                 </CardContent>
