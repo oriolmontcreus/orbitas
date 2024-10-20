@@ -2,10 +2,12 @@
 import Layout from '@layouts/Layout.astro';
 import { ViewTransitions } from 'astro:transitions';
 import "../app.css";
+import MainApp from '$lib/components/MainApp.svelte';
 ---
 
 <Layout title="Welcome to Orbitas.">
 	<ViewTransitions/>
 	<main>
+		<MainApp client:visible/>
 	</main>
 </Layout>
