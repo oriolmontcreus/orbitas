@@ -1,16 +1,19 @@
 <script lang="ts">
 	import type { HTMLAttributes } from "svelte/elements";
 	import { cn } from "$lib/utils/utils.js";
-
+  
 	type $$Props = HTMLAttributes<HTMLDivElement>;
-
+  
 	let className: $$Props["class"] = undefined;
 	export { className as class };
-</script>
-
-<div
+  </script>
+  
+  <div
 	class={cn("bg-card text-card-foreground rounded-lg border shadow-sm", className)}
+	role="button"
+	tabindex="0"
+	on:click
 	{...$$restProps}
->
+  >
 	<slot />
-</div>
+  </div>
