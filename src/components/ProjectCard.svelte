@@ -23,7 +23,7 @@
     </CardHeader>
     <CardContent>
         <p class="text-sm text-muted-foreground mb-2">
-            by {project.creator}
+            by {project.creator.username}
         </p>
         <div class="flex space-x-2">
             {#if project.isOpenSource}

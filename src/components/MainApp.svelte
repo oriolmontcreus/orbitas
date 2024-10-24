@@ -6,40 +6,78 @@
   import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
   import { ScrollArea } from "$lib/components/ui/scroll-area";
   import type { Project } from "$lib/types/Project";
-    import { License } from "$lib/constants/License";
+  import { License } from "$lib/constants/License";
+  import type { User } from "$lib/models/User";
+  import { ProjectStatus } from "$lib/constants/ProjectStatus";
 
   let selectedProject: Project | null = null;
+
+  const users: User[] = [
+    {
+      id: "1",
+      username: "alicejohnson",
+      email: "alice@example.com",
+      name: "Alice Johnson",
+      created: new Date(),
+      updated: new Date(),
+    },
+    {
+      id: "2",
+      username: "bobsmith",
+      email: "bob@example.com",
+      name: "Bob Smith",
+      created: new Date(),
+      updated: new Date(),
+    },
+    {
+      id: "3",
+      username: "charliebrown",
+      email: "charlie@example.com",
+      name: "Charlie Brown",
+      created: new Date(),
+      updated: new Date(),
+    },
+  ];
 
   const projects: Project[] = [
     {
       id: 1,
       title: "AI-Powered Art Generator",
-      creator: "Alice Johnson",
-      collaborators: 5,
+      creator: users[0],
       isOpenSource: true,
       description:
         "An innovative project leveraging machine learning to create unique digital artworks based on text prompts.",
       license: License.MIT,
+      tags: ["AI", "Art", "Machine Learning"],
+      status: ProjectStatus.Active,
+      website: "https://ai-art-generator.example.com",
+      repositoryUrl: "https://github.com/example/ai-art-generator",
     },
     {
       id: 2,
       title: "Sustainable Urban Planning Tool",
-      creator: "Bob Smith",
-      collaborators: 8,
+      creator: users[1],
       isOpenSource: false,
       description:
         "A comprehensive software solution for city planners to design eco-friendly and efficient urban spaces.",
       license: License.Apache_2_0,
+      tags: ["Urban Planning", "Sustainability", "Eco-Friendly"],
+      status: ProjectStatus.Draft,
+      website: "https://urban-planning-tool.example.com",
+      repositoryUrl: "https://github.com/example/urban-planning-tool",
     },
     {
       id: 3,
       title: "Decentralized Social Media Platform",
-      creator: "Charlie Brown",
-      collaborators: 12,
+      creator: users[2],
       isOpenSource: true,
       description:
         "A blockchain-based social network that prioritizes user privacy and data ownership.",
       license: License.GPL_3_0,
+      tags: ["Blockchain", "Social Media", "Privacy"],
+      status: ProjectStatus.Completed,
+      website: "https://decentralized-social.example.com",
+      repositoryUrl: "https://github.com/example/decentralized-social",
     },
   ];
 
@@ -74,6 +112,7 @@
       </ScrollArea>
     </div>
   </main>
-
-  <ProjectDetails {selectedProject} />
+  {#if selectedProject}
+    <ProjectDetails {selectedProject} />
+  {/if}
 </div>

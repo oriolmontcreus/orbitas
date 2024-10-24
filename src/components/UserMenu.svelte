@@ -14,7 +14,7 @@
     },
     errorMsg: "Logout failed. Please try again.",
     successMsg: "Logged out successfully.",
-    redirectUrl: "/"
+    redirectUrl: "/login"
   });
 }
 
