@@ -79,6 +79,19 @@
       website: "https://decentralized-social.example.com",
       repositoryUrl: "https://github.com/example/decentralized-social",
     },
+    {
+      id: 4,
+      title: "Decentralized Social Media Platform",
+      creator: users[2],
+      isOpenSource: true,
+      description:
+        "A blockchain-based social network that prioritizes user privacy and data ownership.",
+      license: License.GPL_3_0,
+      tags: ["Blockchain", "Social Media", "Privacy"],
+      status: ProjectStatus.Completed,
+      website: "https://decentralized-social.example.com",
+      repositoryUrl: "https://github.com/example/decentralized-social",
+    },
   ];
 
   function selectProject(project: Project) {
@@ -91,20 +104,20 @@
     <header class="border-b p-4">
       <div class="flex items-center justify-between">
         <SearchBar />
+        <Tabs value="all">
+          <TabsList>
+            <TabsTrigger value="all">All Projects</TabsTrigger>
+            <TabsTrigger value="open-source">Open Source</TabsTrigger>
+            <TabsTrigger value="in-progress">Closed Source</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
     </header>
 
-    <div class="flex-1 p-4 overflow-hidden">
-      <Tabs value="all" class="mb-4">
-        <TabsList>
-          <TabsTrigger value="all">All Projects</TabsTrigger>
-          <TabsTrigger value="open-source">Open Source</TabsTrigger>
-          <TabsTrigger value="in-progress">Closed Source</TabsTrigger>
-        </TabsList>
-      </Tabs>
+    <div class="flex-1 px-4 overflow-hidden">
 
-      <ScrollArea class="h-[calc(100vh-20px)]">
-        <div class="space-y-4 mb-4">
+      <ScrollArea class="h-[calc(100vh-160px)]">
+        <div class="space-y-4 my-4">
           {#each projects as project (project.id)}
             <ProjectCard {project} onSelect={selectProject} />
           {/each}

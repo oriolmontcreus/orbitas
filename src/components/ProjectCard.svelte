@@ -25,13 +25,18 @@
         <p class="text-sm text-muted-foreground mb-2">
             by {project.creator.username}
         </p>
-        <div class="flex space-x-2">
+        <div class="flex space-x-2 mb-2">
             {#if project.isOpenSource}
                 <OpenSourceIndicator />
             {:else}
                 <ClosedSourceIndicator />
             {/if}
             <Badge variant="secondary">{project.license}</Badge>
+        </div>
+        <div class="flex flex-wrap space-x-1">
+            {#each project.tags as tag}
+                <Badge variant="outline">{tag}</Badge>
+            {/each}
         </div>
     </CardContent>
 </Card>
